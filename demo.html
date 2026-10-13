@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>African Heritage Hub – Phase 1 Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F6F2;--card:#fff;--ink:#17261D;--mute:#5B6B61;--line:#D8E0D9;--g:#1F5A3B;--on:#fff;--gold:#C98A0B;--goldbg:#FBF0D6;--ok:#1E7A4F;--okbg:#DDF3E8;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1A14;--card:#17261D;--ink:#EAF3EC;--mute:#9DB1A3;--line:#2B4033;--g:#6FCF97;--on:#0F1A14;--gold:#F0B73A;--goldbg:#3A3010;--ok:#6FDDA6;--okbg:#14382A}}
+:root[data-theme="dark"]{--bg:#0F1A14;--card:#17261D;--ink:#EAF3EC;--mute:#9DB1A3;--line:#2B4033;--g:#6FCF97;--on:#0F1A14;--gold:#F0B73A;--goldbg:#3A3010;--ok:#6FDDA6;--okbg:#14382A}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "DM Sans",system-ui,sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px}
+h1,h2,h3{font-family:"Newsreader",Georgia,serif;margin:0;line-height:1.2}
+h1{font-size:30px}h2{font-size:22px;margin-bottom:4px}
+.top{border-bottom:4px solid var(--gold);padding-bottom:14px;margin-bottom:18px}
+.top p{margin:4px 0 0;color:var(--mute)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{background:var(--goldbg);border-radius:20px;padding:3px 12px;font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
+label{display:block;font-size:14px;color:var(--mute);margin-bottom:3px}
+input,select{width:100%;font:inherit;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+input:disabled{opacity:.45}
+input:focus,select:focus,button:focus-visible{outline:2px solid var(--g);outline-offset:2px}
+input[type=checkbox]{width:auto;margin-right:8px}
+.idk{display:flex;align-items:center;margin-top:4px;font-size:13px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+button{font:inherit;cursor:pointer;border:0;border-radius:8px;padding:10px 18px;background:var(--g);color:var(--on);font-weight:500}
+button.alt{background:transparent;color:var(--g);border:1px solid var(--g)}
+button.lnk{background:none;color:var(--g);padding:0;text-decoration:underline;font-weight:400}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+.steps{display:flex;gap:6px;margin-bottom:14px}
+.steps i{flex:1;height:6px;border-radius:3px;background:var(--line)}
+.steps i.on{background:var(--gold)}
+.tabs{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto}
+.tab{background:transparent;color:var(--mute);border:1px solid var(--line);white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--g);color:var(--on);border-color:var(--g)}
+.hide{display:none!important}
+.err{color:#C23B3B;font-size:14px;min-height:20px;margin:8px 0 0}
+.note{color:var(--mute);font-size:14px}
+.sub{color:var(--mute);margin:0}
+.tree{overflow-x:auto;padding:6px 0}
+.gen{display:flex;justify-content:center;gap:10px;margin-bottom:26px;position:relative}
+.gen:not(:last-child)::after{content:"";position:absolute;left:50%;bottom:-24px;height:22px;border-left:2px solid var(--line)}
+.pair{display:flex;gap:8px;padding:8px;border:1px dashed var(--line);border-radius:12px}
+.person{min-width:120px;text-align:center;background:var(--card);border:2px solid var(--line);border-radius:10px;padding:8px 10px}
+.person b{display:block;font-family:"Newsreader",Georgia,serif;font-size:16px}
+.person small{display:block;color:var(--mute);font-size:13px}
+.person.me{border-color:var(--gold);background:var(--goldbg)}
+.person.unk b{color:var(--mute);font-weight:500}
+.lbl{text-align:center;color:var(--mute);font-size:13px;margin:0 0 6px}
+.media{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:12px}
+.media img{width:100%;height:120px;object-fit:cover;border-radius:8px;display:block}
+.item{border:1px solid var(--line);border-radius:10px;padding:8px;background:var(--bg);font-size:14px}
+.story{border-left:4px solid var(--gold);padding:8px 12px;margin-top:10px;background:var(--bg);border-radius:0 8px 8px 0}
+audio{width:100%;margin-top:6px}
+.badge{display:inline-block;border-radius:12px;padding:1px 10px;font-size:13px}
+.badge.p{background:var(--goldbg)}.badge.j{background:var(--okbg);color:var(--ok)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin:6px 0 12px}
+.bar i{display:block;height:100%;background:var(--gold)}
+.priv{color:var(--ok);font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section id="auth">
+  <div class="top"><h1>African Heritage Hub</h1><p>From forefathers to future generations. Phase 1 demo.</p></div>
+  <div class="card">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" id="tab-up">Create account</button>
+      <button class="tab" role="tab" aria-selected="false" id="tab-in">Log in</button>
+    </div>
+    <div id="f-up">
+      <div class="grid" style="margin-top:0">
+        <div><label for="un">Full name</label><input id="un" autocomplete="name"></div>
+        <div><label for="uc">Email or phone</label><input id="uc" autocomplete="username"></div>
+        <div><label for="up">Password</label><input id="up" type="password" autocomplete="new-password" placeholder="At least 8 characters"></div>
+        <div><label for="up2">Confirm password</label><input id="up2" type="password" autocomplete="new-password"></div>
+      </div>
+      <p><label style="display:flex;align-items:flex-start"><input type="checkbox" id="uk"><span>I agree that my family information will be stored securely and shared only with relatives I invite.</span></label></p>
+      <button id="b-up">Create account</button>
+    </div>
+    <div id="f-in" class="hide">
+      <div class="grid" style="margin-top:0">
+        <div><label for="lc">Email or phone</label><input id="lc" autocomplete="username"></div>
+        <div><label for="lp">Password</label><input id="lp" type="password" autocomplete="current-password"></div>
+      </div>
+      <p><button class="lnk" id="forgot">Forgot password?</button></p>
+      <button id="b-in">Log in</button>
+    </div>
+    <p class="err" id="aerr" role="alert"></p>
+    <p class="note">Demo only: nothing is stored on a server. Create an account first, then use Log in.</p>
+  </div>
+</section>
+
+<section id="wiz" class="hide">
+  <div class="top"><h1>Set up your family</h1><p>Skip anything you don't know. The family can fill gaps later.</p></div>
+  <div class="steps" id="steps"></div>
+
+  <div class="card wstep" data-s="0">
+    <h2>Create your family</h2><p class="sub">Give your family workspace a name.</p>
+    <div class="grid"><div><label for="fn">Family name</label><input id="fn" placeholder="e.g. Kamau Family"></div></div>
+  </div>
+
+  <div class="card wstep hide" data-s="1">
+    <h2>Tell us about you</h2><p class="sub">Your own details first. ID number, clan and home area are optional.</p>
+    <div class="grid">
+      <div><label for="me">Full name</label><input id="me"></div>
+      <div><label for="tn">Traditional name <span class="note">(optional)</span></label><input id="tn"></div>
+      <div><label for="gd">Gender</label><select id="gd"><option>Female</option><option>Male</option><option>Other</option></select></div>
+      <div><label for="dob">Date of birth</label><input id="dob" type="date"></div>
+      <div><label for="me-id">ID number <span class="note">(optional)</span></label><input id="me-id" inputmode="numeric"></div><div><label for="me-cl">Clan <span class="note">(optional)</span></label><input id="me-cl"></div><div id="loc-me" style="display:contents"></div>
+    </div>
+  </div>
+
+  <div class="card wstep hide" data-s="2">
+    <h2>Add your parents</h2><p class="sub">Parent links are created for you. Everything except the name is optional.</p>
+    <div class="grid" id="g-par"></div>
+  </div>
+
+  <div class="card wstep hide" data-s="3">
+    <h2>Add your grandparents</h2><p class="sub">One generation further. The side of the family is kept.</p>
+    <div class="grid" id="g-gp"></div>
+  </div>
+
+  <div class="nav"><button class="alt" id="back">Back</button><button id="next">Continue</button></div>
+</section>
+
+<section id="app" class="hide">
+  <div class="top">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px"><h1 id="t-fam"></h1><button class="alt" id="logout" style="padding:6px 14px">Log out</button></div>
+    <div class="chips" id="t-meta"></div>
+  </div>
+  <div class="tabs" role="tablist">
+    <button class="tab at" role="tab" aria-selected="true" data-t="tree">Family tree</button>
+    <button class="tab at" role="tab" aria-selected="false" data-t="media">Photos &amp; elder stories</button>
+    <button class="tab at" role="tab" aria-selected="false" data-t="fam">Members &amp; invites</button>
+  </div>
+
+  <div id="p-tree" class="card">
+    <h2>Family tree</h2>
+    <div class="tree" id="tree"></div>
+    <p class="note">Parents, grandparents and sides of the family are linked automatically.</p>
+  </div>
+
+  <div id="p-media" class="hide">
+    <div class="card">
+      <h2>Add a photo</h2>
+      <div class="grid">
+        <div><label for="pc">Caption</label><input id="pc" placeholder="e.g. Wedding, Nyeri, 1978"></div>
+        <div><label for="pf">Photo</label><input id="pf" type="file" accept="image/*"></div>
+      </div>
+      <div style="max-width:260px"><label for="vp">Who can see this?</label><select id="vp"><option>Whole family</option><option>Only me</option></select></div><p></p>
+      <button id="padd">Save photo</button>
+      <div class="media" id="photos"></div>
+    </div>
+    <div class="card">
+      <h2>Record an elder story</h2>
+      <div class="grid">
+        <div><label for="sp">Who is speaking?</label><select id="sp"></select></div>
+        <div><label for="st">Story title</label><input id="st" placeholder="e.g. How our family moved to Kiambu"></div>
+        <div><label for="sl">Language</label><select id="sl"><option>Kikuyu</option><option>Kiswahili</option><option>English</option><option>Luo</option><option>Kamba</option><option>Other</option></select></div>
+        <div><label for="sf">Audio file</label><input id="sf" type="file" accept="audio/*"></div>
+      </div>
+      <div style="max-width:260px"><label for="vs">Who can see this?</label><select id="vs"><option>Whole family</option><option>Only me</option></select></div><p></p>
+      <button id="sadd">Save story</button>
+      <div id="stories"></div>
+    </div>
+  </div>
+
+  <div id="p-fam" class="hide card">
+    <h2>Members &amp; invites</h2>
+    <div id="cap"></div>
+    <div class="bar"><i id="capbar"></i></div>
+    <div id="members"></div>
+    <h3 style="margin-top:18px;font-size:18px">Invite a relative</h3>
+    <div class="grid">
+      <div><label for="in">Name</label><input id="in" placeholder="e.g. Uncle Peter"></div>
+      <div><label for="ic">Phone or email</label><input id="ic" placeholder="0712 345 678"></div>
+    </div>
+    <p><button id="iadd">Send invitation</button></p>
+    <p class="note">Demo only: nothing is sent. Press "Accept" to see a relative join.</p>
+  </div>
+</section>
+
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let ACC=null,FAM=false,step=0,S={members:[]};
+const N=4;
+
+/* person fields with "I don't know" */
+const pf=(id,l)=>`<div><label for="${id}">${l}</label><input id="${id}"><label class="idk"><input type="checkbox" data-for="${id}">I don't know</label></div>`;
+const LOC={
+ "Nairobi":{"Westlands":["Kitisuru","Parklands/Highridge","Karura","Kangemi","Mountain View"],"Langata":["Karen","Nairobi West","Mugumo-ini","South C","Nyayo Highrise"]},
+ "Kiambu":{"Thika Town":["Township","Kamenu","Hospital","Gatuanyaga","Ngoliba"],"Ruiru":["Gitothua","Biashara","Gatongora","Kahawa Sukari","Kahawa Wendani","Kiuu","Mwiki","Mwihoko"],"Limuru":["Limuru Central","Limuru East","Ndeiya","Ngecha Tigoni","Bibirioni"]},
+ "Kisumu":{"Kisumu Central":["Railways","Migosi","Shaurimoyo Kaloleni","Market Milimani","Kondele","Nyalenda B"],"Kisumu East":["Kajulu","Kolwa East","Manyatta B","Nyalenda A","Kolwa Central"]},
+ "Mombasa":{"Mvita":["Mji Wa Kale/Makadara","Tudor","Tononoka","Shimanzi/Ganjoni","Majengo"],"Nyali":["Frere Town","Ziwa La Ng'ombe","Mkomani","Kongowea","Kadzandani"]},
+ "Nakuru":{"Nakuru Town East":["Biashara","Kivumbini","Flamingo","Menengai","Nakuru East"],"Naivasha":["Biashara","Hells Gate","Lake View","Mai Mahiu","Maiella","Olkaria","Naivasha East","Viwandani"]}
+};
+const opts=(a,ph)=>`<option value="">${ph}</option>`+a.map(x=>`<option>${x}</option>`).join("")+`<option>Other / not listed</option>`;
+const locHTML=(k,g)=>["County","Sub-county","Ward"].map((l,i)=>`<div${g?'':' style="margin-top:8px"'}><label for="${k}-${"csw"[i]}">${l}</label><select id="${k}-${"csw"[i]}"></select></div>`).join("");
+function initLoc(k){
+  const c=$(k+"-c"),s=$(k+"-s"),w=$(k+"-w");
+  c.innerHTML=opts(Object.keys(LOC),"Select county");s.innerHTML=opts([],"Select sub-county");w.innerHTML=opts([],"Select ward");
+  c.onchange=()=>{s.innerHTML=opts(Object.keys(LOC[c.value]||{}),"Select sub-county");w.innerHTML=opts([],"Select ward")};
+  s.onchange=()=>{w.innerHTML=opts((LOC[c.value]||{})[s.value]||[],"Select ward")};
+}
+const par=(k,l)=>`<div><label for="${k}">${l}</label><input id="${k}"><label class="idk"><input type="checkbox" data-for="${k}" data-hide="x-${k}">I don't know</label>
+<div id="x-${k}"><div style="margin-top:8px"><label for="${k}-id">ID number <span class="note">(optional)</span></label><input id="${k}-id" inputmode="numeric"></div>
+<div style="margin-top:8px"><label for="${k}-cl">Clan <span class="note">(optional)</span></label><input id="${k}-cl"></div>${locHTML(k)}</div></div>`;
+$("g-par").innerHTML=par("fa","Father")+par("mo","Mother");
+$("loc-me").innerHTML=locHTML("me",true);
+["me","fa","mo"].forEach(initLoc);
+$("g-gp").innerHTML=pf("pgf","Father's father")+pf("pgm","Father's mother")+pf("mgf","Mother's father")+pf("mgm","Mother's mother");
+document.querySelectorAll("[data-for]").forEach(c=>c.onchange=()=>{const i=$(c.dataset.for);i.disabled=c.checked;if(c.checked)i.value="";if(c.dataset.hide)$(c.dataset.hide).classList.toggle("hide",c.checked)});
+
+/* auth */
+const aerr=m=>$("aerr").textContent=m;
+function authTab(up){
+  $("tab-up").setAttribute("aria-selected",up);$("tab-in").setAttribute("aria-selected",!up);
+  $("f-up").classList.toggle("hide",!up);$("f-in").classList.toggle("hide",up);aerr("");
+}
+$("tab-up").onclick=()=>authTab(true);
+$("tab-in").onclick=()=>authTab(false);
+$("forgot").onclick=()=>aerr("Demo: the real app sends a reset link to your email or phone.");
+function view(id){["auth","wiz","app"].forEach(k=>$(k).classList.toggle("hide",k!==id));window.scrollTo(0,0)}
+$("b-up").onclick=()=>{
+  const n=$("un").value.trim(),c=$("uc").value.trim(),p=$("up").value;
+  if(!n)return aerr("Enter your full name.");
+  if(!c)return aerr("Enter an email address or phone number.");
+  if(p.length<8)return aerr("Password must be at least 8 characters.");
+  if(p!==$("up2").value)return aerr("The two passwords do not match.");
+  if(!$("uk").checked)return aerr("Tick the box to agree before continuing.");
+  ACC={n,c,p};FAM=false;aerr("");$("me").value=n;step=0;showStep();view("wiz");
+};
+$("b-in").onclick=()=>{
+  if(!ACC)return aerr("No account yet in this demo. Create one first.");
+  if($("lc").value.trim()!==ACC.c||$("lp").value!==ACC.p)return aerr("Email, phone or password is incorrect.");
+  aerr("");view(FAM?"app":"wiz");
+};
+$("logout").onclick=()=>{$("lc").value="";$("lp").value="";authTab(false);view("auth")};
+
+/* wizard */
+function showStep(){
+  document.querySelectorAll(".wstep").forEach(s=>s.classList.toggle("hide",+s.dataset.s!==step));
+  $("steps").innerHTML=Array.from({length:N},(_,i)=>`<i class="${i<=step?'on':''}"></i>`).join("");
+  $("back").style.visibility=step?"visible":"hidden";
+  $("next").textContent=step===N-1?"Finish and see my family tree":"Continue";
+}
+$("back").onclick=()=>{if(step>0){step--;showStep();window.scrollTo(0,0)}};
+$("next").onclick=()=>{
+  if(step===0&&!$("fn").value.trim()){$("fn").focus();return}
+  if(step===1&&!$("me").value.trim()){$("me").focus();return}
+  if(step<N-1){step++;showStep();window.scrollTo(0,0)}else finish();
+};
+function finish(){
+  const v=id=>$(id).value.trim();
+  S.p={me:v("me"),tn:v("tn"),fa:v("fa"),mo:v("mo"),pgf:v("pgf"),pgm:v("pgm"),mgf:v("mgf"),mgm:v("mgm")};
+  const ex=k=>({cl:v(k+"-cl"),loc:["w","s","c"].map(x=>v(k+"-"+x)).filter(x=>x&&x!=="Other / not listed").join(", ")});
+  S.x={me:ex("me"),fa:ex("fa"),mo:ex("mo")};
+  S.members=[{n:S.p.me,s:"Joined",role:"Family admin"}];
+  $("t-fam").textContent=v("fn");
+  $("t-meta").innerHTML='<span class="chip">Up to 20 family members</span><span class="chip">Private to your family</span>';
+  FAM=true;drawTree();drawMembers();fillSpeakers();view("app");
+}
+
+/* app */
+function pbox(name,role,me,tn,x){
+  const u=!name;
+  return `<div class="person${me?' me':''}${u?' unk':''}"><b>${u?'Unknown':esc(name)}</b><small>${role}${tn?' · '+esc(tn):''}</small>${x&&x.cl?`<small>Clan: ${esc(x.cl)}</small>`:''}${x&&x.loc?`<small>${esc(x.loc)}</small>`:''}</div>`;
+}
+function drawTree(){
+  const p=S.p;
+  $("tree").innerHTML=
+   `<div class="gen"><div><p class="lbl">Father's side</p><div class="pair">${pbox(p.pgf,"Grandfather")}${pbox(p.pgm,"Grandmother")}</div></div>
+    <div><p class="lbl">Mother's side</p><div class="pair">${pbox(p.mgf,"Grandfather")}${pbox(p.mgm,"Grandmother")}</div></div></div>
+    <div class="gen"><div class="pair">${pbox(p.fa,"Father",0,"",S.x.fa)}${pbox(p.mo,"Mother",0,"",S.x.mo)}</div></div>
+    <div class="gen">${pbox(p.me,"You",true,p.tn,S.x.me)}</div>`;
+}
+function fillSpeakers(){
+  const p=S.p;
+  $("sp").innerHTML=[p.pgf,p.pgm,p.mgf,p.mgm,p.fa,p.mo,p.me].filter(Boolean).map(n=>`<option>${esc(n)}</option>`).join("");
+}
+function drawMembers(){
+  const n=S.members.length;
+  $("cap").innerHTML=`<b>${n} of 20</b> member places used`;
+  $("capbar").style.width=(n/20*100)+"%";
+  $("members").innerHTML=S.members.map((m,i)=>`<div class="row"><div><b>${esc(m.n)}</b><br><span class="note">${m.role}</span></div>
+   <div><span class="badge ${m.s==="Joined"?"j":"p"}">${m.s==="Joined"?"Joined":"Invitation pending"}</span>
+   ${m.s==="Pending"?`<button class="alt" data-a="${i}" style="margin-left:8px;padding:5px 12px">Accept</button>`:""}</div></div>`).join("");
+  document.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{S.members[b.dataset.a].s="Joined";drawMembers()});
+}
+$("iadd").onclick=()=>{
+  const n=$("in").value.trim();if(!n)return;
+  if(S.members.length>=20){alert("This family has reached its 20-member limit.");return}
+  S.members.push({n,s:"Pending",role:"Family member"});
+  $("in").value="";$("ic").value="";drawMembers();
+};
+$("padd").onclick=()=>{
+  const f=$("pf").files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    $("photos").insertAdjacentHTML("afterbegin",`<div class="item"><img src="${r.result}" alt=""><div>${esc($("pc").value||"Untitled photo")}</div><span class="note">Added by ${esc(S.p.me)} · ${esc($("vp").value)}</span></div>`);
+    $("pc").value="";$("pf").value="";
+  };
+  r.readAsDataURL(f);
+};
+$("sadd").onclick=()=>{
+  const f=$("sf").files[0],t=$("st").value.trim()||"Untitled story";
+  let pl=`<p class="note">No audio file chosen in this demo.</p>`;
+  if(f){try{pl=`<audio controls src="${URL.createObjectURL(f)}"></audio>`}catch(e){pl=`<p class="note">Audio attached: ${esc(f.name)}</p>`}}
+  $("stories").insertAdjacentHTML("afterbegin",`<div class="story"><b>${esc(t)}</b><br><span class="note">Told by ${esc($("sp").value)} in ${esc($("sl").value)}. Recorded by ${esc(S.p.me)}. Visible to: ${esc($("vs").value)}.</span>${pl}</div>`);
+  $("st").value="";$("sf").value="";
+};
+document.querySelectorAll(".at").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".at").forEach(x=>x.setAttribute("aria-selected",x===b));
+  ["tree","media","fam"].forEach(k=>$("p-"+k).classList.toggle("hide",k!==b.dataset.t));
+});
+showStep();
+</script>
+</body>
+</html>
